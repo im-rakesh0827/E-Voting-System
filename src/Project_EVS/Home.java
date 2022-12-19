@@ -1,5 +1,6 @@
 package Project_EVS;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,21 +17,24 @@ public class Home extends JFrame implements ActionListener {
     JLabel[] labelArray;
     JTextField[] fieldArray;
     JButton[] buttonArray;
+    JLabel labelVote;
+    JLabel labelResponse;
     static JButton buttonResponse;
-    JLabel myLabel;
-    int congressVote;
+    static JButton buttonVote;
 
     JButton [] buttonResponseArray;
     JTextField [] tfVoteArray;
     JTextField fieldResponse;
+
 
     Home() {
         setLayout(null);
         // getContentPane().setBackground(Color.WHITE);
 
         JLabel heading = new JLabel("E-VOTING SYSTEM");
-        heading.setBounds(325, 20, 400, 40);
+        heading.setBounds(375, 20, 400, 40);
         heading.setFont(new Font("serif", Font.BOLD, 40));
+        heading.setForeground(Color.DARK_GRAY);
         add(heading);
 
 
@@ -135,15 +139,23 @@ public class Home extends JFrame implements ActionListener {
 
 
 
-        JLabel labelResponse = new JLabel("Response");
+        labelResponse = new JLabel("Response");
         labelResponse.setBounds(750, 120, 200, 40);
         labelResponse.setFont(new Font("serif", Font.BOLD, 30));
         add(labelResponse);
 
-        JLabel labelVote = new JLabel("Vote Count");
+        labelVote = new JLabel("Vote Count");
         labelVote.setBounds(970, 120, 200, 40);
         labelVote.setFont(new Font("serif", Font.BOLD, 30));
         add(labelVote);
+
+
+
+
+//        buttonVote = new JButton();
+//        buttonVote.setBounds(970, 180, 150, 100);
+//        buttonVote.setFont(new Font("serif", Font.BOLD, 90));
+//        add(buttonVote);
 
 
 
@@ -171,11 +183,7 @@ public class Home extends JFrame implements ActionListener {
         if(e.getSource().equals(buttonCongress)){
             if(confirmOptionYesNo()){
                 voteResponse(buttonCongress);
-            }else{
-//                setVisible(false);
-//                new Home();
             }
-
         }else if(e.getSource().equals(buttonAAP)){
             if(confirmOptionYesNo()){
                 voteResponse(buttonAAP);
@@ -183,9 +191,30 @@ public class Home extends JFrame implements ActionListener {
         }else if(e.getSource().equals(buttonJDU)){
             if(confirmOptionYesNo()){
                 voteResponse(buttonJDU);
-            }else{
-//                setVisible(false);
-//                new Home();
+            }
+        }else if(e.getSource().equals(buttonRJD)){
+            if(confirmOptionYesNo()){
+                voteResponse(buttonRJD);
+            }
+        }else if(e.getSource().equals(buttonSP)){
+            if(confirmOptionYesNo()){
+                voteResponse(buttonSP);
+            }
+        }else if(e.getSource().equals(buttonBSP)){
+            if(confirmOptionYesNo()){
+                voteResponse(buttonBSP);
+            }
+        }else if(e.getSource().equals(buttonShivSena)){
+            if(confirmOptionYesNo()){
+                voteResponse(buttonShivSena);
+            }
+        }else if(e.getSource().equals(buttonCPI)){
+            if(confirmOptionYesNo()){
+                voteResponse(buttonCPI);
+            }
+        }else if(e.getSource().equals(buttonBJP)){
+            if(confirmOptionYesNo()){
+                voteResponse(buttonBJP);
             }
         }
 
@@ -193,17 +222,25 @@ public class Home extends JFrame implements ActionListener {
     public void voteResponse(JButton response){
         buttonResponse = new JButton();
         buttonResponse.setIcon(response.getIcon());
-        buttonResponse.setBounds(750, 180, 150, 100);
+        buttonResponse.setBounds(740, 180, 150, 100);
         add(buttonResponse);
         applyButtonBorderResponse(buttonResponse);
+        buttonVote = new JButton("+1");
+        buttonVote.setBounds(970, 180, 150, 100);
+        buttonVote.setFont(new Font("serif", Font.BOLD, 90));
+        buttonVote.setForeground(Color.GREEN);
+        add(buttonVote);
+        Border border = BorderFactory.createLineBorder(Color.ORANGE, 3);
+        buttonVote.setBorder(border);
         JOptionPane.showMessageDialog(
                 this,
-                "Your Response Has Been Saved",
-                "CONGRATULATION !",
+                "You Have Voted Successfully",
+                "Congratulation !",
                 JOptionPane.ERROR_MESSAGE
         );
+
         setVisible(false);
-        new Welcome();
+        new Feedback();
     }
 
 

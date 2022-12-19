@@ -7,6 +7,6 @@ public class ConfirmChoice extends JFrame {
 
     public static boolean confirmOptionYesNo(){
         frame = new JFrame();
-        return JOptionPane.showConfirmDialog(frame, "Press Yes/No To Continue", "Confirm Your Choice", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION;
+        return JOptionPane.showConfirmDialog(frame, "Press Yes / No.", "Confirm Your Choice !", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION;
     }
 }
