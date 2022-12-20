@@ -17,7 +17,7 @@ public class ApplyFontStyle extends JFrame {
 
     public static void applyFontStyleButtonBig(JButton [] buttonArray){
         for(JButton button:buttonArray){
-            button.setFont(new Font("serif", Font.BOLD, 20));
+            button.setFont(new Font("serif", Font.BOLD, 25));
         }
     }
 

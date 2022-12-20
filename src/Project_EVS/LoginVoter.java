@@ -10,7 +10,7 @@ import static Project_EVS.ConfirmChoice.confirmOptionYesNo;
 public class LoginVoter extends JFrame  implements ActionListener {
 
     JLabel labelEmail, labelPassword;
-    JTextField tfEmail;
+    JTextField tfEmail, tfConfirmPassword;
     JPasswordField pfPassword;
     JButton buttonLogin, buttonRegister, buttonCancel;
 
@@ -85,13 +85,31 @@ public class LoginVoter extends JFrame  implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(buttonLogin)){
-            if(tfEmail.getText().isEmpty() || tfEmail.getText().isEmpty()){
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Fill the details carefully...",
-                        "Missing Details",
-                        JOptionPane.ERROR_MESSAGE
-                );
+            try {
+                if(tfEmail.getText().isEmpty() || tfEmail.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Fill the details carefully...",
+                            "Missing Details",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }else{
+                    if(!pfPassword.equals(tfConfirmPassword)){
+                        JOptionPane.showMessageDialog(
+                                this,
+                                "Re-Enter Confirm Password.",
+                                "Password Mismatch",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    }else{
+                        String URL = "";
+                        String USERNAME = "root";
+                        String PASSWORD = "Apple@0827";
+                    }
+
+                }
+            }catch (Exception E){
+                E.printStackTrace();
             }
 
         }else if(e.getSource().equals(buttonRegister)){
@@ -99,6 +117,13 @@ public class LoginVoter extends JFrame  implements ActionListener {
             new RegisterVoter();
         }else if(e.getSource().equals(buttonCancel)){
             if(confirmOptionYesNo()){
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Press Ok To Continue !",
+                        "Login Cancelled !",
+                        JOptionPane.ERROR_MESSAGE
+                );
                 setVisible(false);
                 new Welcome();
             }

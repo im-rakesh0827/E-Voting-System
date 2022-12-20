@@ -145,15 +145,6 @@ public class RegisterVoter extends JFrame implements ActionListener {
         add(pfConfirmPassword);
 
 
-
-
-
-
-
-
-
-
-
         int verticalShiftButton = 550;
         int horizontalShiftButton = 190;
         int gap = 290;
@@ -207,6 +198,12 @@ public class RegisterVoter extends JFrame implements ActionListener {
             }
         }else if(e.getSource().equals(buttonCancel)){
             if(confirmOptionYesNo()){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Press Ok To Continue !",
+                        "Registration Cancelled",
+                        JOptionPane.ERROR_MESSAGE
+                );
                 setVisible(false);
                 new Welcome();
             }

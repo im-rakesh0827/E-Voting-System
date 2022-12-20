@@ -62,8 +62,6 @@ public class Home extends JFrame implements ActionListener {
 
 
 
-
-
         // JDU :
         buttonJDU = new JButton(imageToIcon("PartyLogo/JDU.png"));
         buttonJDU.setBounds(450, buttonVerticalShift, 150, 100);
@@ -240,7 +238,7 @@ public class Home extends JFrame implements ActionListener {
         );
 
         setVisible(false);
-        new Feedback();
+        new Greeting();
     }
 
 

@@ -5,10 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static Project_EVS.ConfirmChoice.confirmOptionYesNo;
+
 public class LoginAdmin extends JFrame implements ActionListener {
 
     JLabel labelEmail, labelPassword;
-    JTextField tfEmail;
+    JTextField tfEmail, tfConfirmPassword;
     JPasswordField pfPassword;
     JButton buttonLogin, buttonRegister, buttonCancel;
 
@@ -75,6 +77,32 @@ public class LoginAdmin extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource().equals(buttonLogin)){
+            String email = tfEmail.getText();
+            String password = String.valueOf(pfPassword.getPassword());
+            if(email.isEmpty() || password.isEmpty()){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Enter The Details Carefully.",
+                        "Details Missing",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }else if(e.getSource().equals(buttonRegister)){
+            setVisible(false);
+            new RegisterAdmin();
+        }else if(e.getSource().equals(buttonCancel)){
+            if(confirmOptionYesNo()){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Press Ok To Continue.",
+                        "Registration Cancelled !",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                setVisible(false);
+                new Welcome();
+            }
+        }
 
 
     }
