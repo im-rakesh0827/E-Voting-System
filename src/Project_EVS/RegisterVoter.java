@@ -257,7 +257,7 @@ public class RegisterVoter extends JFrame implements ActionListener {
                 );
             }
             setVisible(false);
-            new Home();
+            new LoginVoter();
         }
 
     }
@@ -295,6 +295,7 @@ public class RegisterVoter extends JFrame implements ActionListener {
                 voter.phone = phone;
                 voter.age = age;
                 voter.aadhar = aadhar;
+                voter.userId = userId;
                 voter.voterId = voterId;
                 voter.voted = voted;
                 voter.password = password;

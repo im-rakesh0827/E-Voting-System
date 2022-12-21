@@ -4,13 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 import static Project_EVS.ConfirmChoice.confirmOptionYesNo;
 
 public class LoginVoter extends JFrame  implements ActionListener {
 
-    JLabel labelEmail, labelPassword;
-    JTextField tfEmail, tfConfirmPassword;
+    JLabel labelVoterID, labelPassword;
+    JTextField tfVoterID, tfConfirmPassword;
     JPasswordField pfPassword;
     JButton buttonLogin, buttonRegister, buttonCancel;
 
@@ -27,14 +28,14 @@ public class LoginVoter extends JFrame  implements ActionListener {
         add(heading);
 
 
-        labelEmail = new JLabel("Email : ");
-        labelEmail.setBounds(120, 170, 120, 30);
-        labelEmail.setFont(new Font("serif", Font.BOLD, 25));
-        add(labelEmail);
-        tfEmail = new JTextField();
-        tfEmail.setBounds(300, 170, 460, 30);
-        tfEmail.setFont(new Font("serif", Font.PLAIN, 20));
-        add(tfEmail);
+        labelVoterID = new JLabel("Voter ID : ");
+        labelVoterID.setBounds(120, 170, 120, 30);
+        labelVoterID.setFont(new Font("serif", Font.BOLD, 25));
+        add(labelVoterID);
+        tfVoterID = new JTextField();
+        tfVoterID.setBounds(300, 170, 460, 30);
+        tfVoterID.setFont(new Font("serif", Font.PLAIN, 20));
+        add(tfVoterID);
 
 
         labelPassword = new JLabel("Password : ");
@@ -82,35 +83,59 @@ public class LoginVoter extends JFrame  implements ActionListener {
     }
 
 
+    public void voterLogin() throws ClassNotFoundException, SQLException {
+        String vId = tfVoterID.getText();
+        String password = String.valueOf(pfPassword.getPassword());
+        if(vId.isEmpty() || password.isEmpty()){
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Enter Your Details Carefully...",
+                    "Missing Details",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }else{
+            final String DBURL = "jdbc:mysql://localhost:3306/votingsystem";
+            final String USERNAME = "root";
+            final String PASSWORD = "Apple@0827";
+            final String driver = "com.mysql.cj.jdbc.Driver";
+            Class.forName(driver);
+            Connection connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();
+            String query = "select * from voter where voterId= '"+vId+"'+and password='"+password+"'";
+            ResultSet resultSet = statement.executeQuery(query);
+            if(resultSet.next()){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "You Have Logged In Successfully.",
+                        "Login Successful",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                setVisible(false);
+                new Home();
+            }else{
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Your Credential Is Invalid",
+                        "Try Again",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                setVisible(false);
+                new LoginVoter();
+            }
+
+        }
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(buttonLogin)){
             try {
-                if(tfEmail.getText().isEmpty() || tfEmail.getText().isEmpty()){
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Fill the details carefully...",
-                            "Missing Details",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }else{
-                    if(!pfPassword.equals(tfConfirmPassword)){
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Re-Enter Confirm Password.",
-                                "Password Mismatch",
-                                JOptionPane.ERROR_MESSAGE
-                        );
-                    }else{
-                        String URL = "";
-                        String USERNAME = "root";
-                        String PASSWORD = "Apple@0827";
-                    }
-
-                }
-            }catch (Exception E){
-                E.printStackTrace();
+                voterLogin();
+            } catch (ClassNotFoundException | SQLException ex) {
+                ex.printStackTrace();
             }
+
 
         }else if(e.getSource().equals(buttonRegister)){
             setVisible(false);
