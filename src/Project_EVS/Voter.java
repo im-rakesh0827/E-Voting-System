@@ -9,6 +9,8 @@ public class Voter {
     public String voterId;
     public String userId;
     public String voted;
+    public String date;
+    public String time;
     public String password;
 
 }

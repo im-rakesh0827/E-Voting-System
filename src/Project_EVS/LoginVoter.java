@@ -5,15 +5,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static Project_EVS.ConfirmChoice.confirmOptionYesNo;
 
 public class LoginVoter extends JFrame  implements ActionListener {
 
     JLabel labelVoterID, labelPassword;
-    JTextField tfVoterID, tfConfirmPassword;
+    JTextField tfVoterID;
     JPasswordField pfPassword;
     JButton buttonLogin, buttonRegister, buttonCancel;
+
+
+
 
     JLabel [] labelArray;
     JTextField [] fieldArray;
@@ -77,53 +82,34 @@ public class LoginVoter extends JFrame  implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void authenticateVoter(){
-        System.out.println("Your Profile Is Under Process ");
-        System.exit(0);
-    }
 
-
-    public void voterLogin() throws ClassNotFoundException, SQLException {
-        String vId = tfVoterID.getText();
-        String password = String.valueOf(pfPassword.getPassword());
-        if(vId.isEmpty() || password.isEmpty()){
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Enter Your Details Carefully...",
-                    "Missing Details",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }else{
-            final String DBURL = "jdbc:mysql://localhost:3306/votingsystem";
-            final String USERNAME = "root";
-            final String PASSWORD = "Apple@0827";
-            final String driver = "com.mysql.cj.jdbc.Driver";
-            Class.forName(driver);
-            Connection connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
-            Statement statement = connection.createStatement();
-            String query = "select * from voter where voterId= '"+vId+"'+and password='"+password+"'";
-            ResultSet resultSet = statement.executeQuery(query);
+    public void authenticateVoter() throws ClassNotFoundException, SQLException {
+        try {
+            String vId = tfVoterID.getText();
+            String password = String.valueOf(pfPassword.getPassword());
+            Conn connection = new Conn();
+            String query = "select * from voter where voterId='"+vId+"'and password = '"+password+"'";
+            ResultSet resultSet = connection.statement.executeQuery(query);
             if(resultSet.next()){
                 JOptionPane.showMessageDialog(
                         this,
-                        "You Have Logged In Successfully.",
+                        "You Have Logged In Successfully",
                         "Login Successful",
                         JOptionPane.ERROR_MESSAGE
                 );
-                setVisible(false);
-                new Home();
             }else{
                 JOptionPane.showMessageDialog(
                         this,
-                        "Your Credential Is Invalid",
-                        "Try Again",
+                        "Invalid Login Credential !",
+                        "Try Again !",
                         JOptionPane.ERROR_MESSAGE
                 );
-                setVisible(false);
-                new LoginVoter();
             }
 
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
 
@@ -131,26 +117,11 @@ public class LoginVoter extends JFrame  implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(buttonLogin)){
             try {
-                voterLogin();
-            } catch (ClassNotFoundException | SQLException ex) {
-                ex.printStackTrace();
-            }
-
-
-        }else if(e.getSource().equals(buttonRegister)){
-            setVisible(false);
-            new RegisterVoter();
-        }else if(e.getSource().equals(buttonCancel)){
-            if(confirmOptionYesNo()){
-
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Press Ok To Continue !",
-                        "Login Cancelled !",
-                        JOptionPane.ERROR_MESSAGE
-                );
-                setVisible(false);
-                new Welcome();
+                authenticateVoter();
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
         }
 
