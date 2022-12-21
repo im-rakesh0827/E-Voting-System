@@ -7,15 +7,14 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import static Project_EVS.ConfirmChoice.confirmOptionYesNo;
-
 public class LoginVoter extends JFrame  implements ActionListener {
 
     JLabel labelVoterID, labelPassword;
     JTextField tfVoterID;
     JPasswordField pfPassword;
     JButton buttonLogin, buttonRegister, buttonCancel;
+
 
 
 
@@ -97,6 +96,8 @@ public class LoginVoter extends JFrame  implements ActionListener {
                         "Login Successful",
                         JOptionPane.ERROR_MESSAGE
                 );
+                setVisible(false);
+                new ProfileVoter(vId);
             }else{
                 JOptionPane.showMessageDialog(
                         this,
@@ -122,6 +123,14 @@ public class LoginVoter extends JFrame  implements ActionListener {
                 throw new RuntimeException(ex);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
+            }
+        }else if(e.getSource().equals(buttonRegister)){
+            setVisible(false);
+            new RegisterVoter();
+        }else if(e.getSource().equals(buttonCancel)){
+            if(confirmOptionYesNo()){
+                setVisible(false);
+                new Welcome();
             }
         }
 
