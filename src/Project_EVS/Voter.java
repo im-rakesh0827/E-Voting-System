@@ -10,4 +10,5 @@ public class Voter {
     public String userId;
     public String voted;
     public String password;
+
 }

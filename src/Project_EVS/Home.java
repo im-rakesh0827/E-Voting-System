@@ -178,42 +178,53 @@ public class Home extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        JButton button = (JButton) e.getSource();
         if(e.getSource().equals(buttonCongress)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonCongress);
-            }
+            applyButtonClickResponse(buttonCongress);
+            if(confirmOptionYesNo())voteResponse(buttonCongress);
+            else applyButtonClickResponseReset(buttonCongress);
+
         }else if(e.getSource().equals(buttonAAP)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonAAP);
-            }
+            applyButtonClickResponse(buttonAAP);
+            if(confirmOptionYesNo())  voteResponse(buttonAAP);
+            else applyButtonClickResponseReset(buttonAAP);
+
         }else if(e.getSource().equals(buttonJDU)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonJDU);
-            }
+            applyButtonClickResponse(buttonJDU);
+            if(confirmOptionYesNo()) voteResponse(buttonJDU);
+            else applyButtonClickResponseReset(buttonJDU);
+
         }else if(e.getSource().equals(buttonRJD)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonRJD);
-            }
+            applyButtonClickResponse(buttonRJD);
+            if(confirmOptionYesNo())voteResponse(buttonRJD);
+            else applyButtonClickResponseReset(buttonRJD);
+
         }else if(e.getSource().equals(buttonSP)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonSP);
-            }
+            applyButtonClickResponse(buttonSP);
+            if(confirmOptionYesNo()) voteResponse(buttonSP);
+            else applyButtonClickResponseReset(buttonSP);
+
         }else if(e.getSource().equals(buttonBSP)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonBSP);
-            }
+            applyButtonClickResponse(buttonBSP);
+            if(confirmOptionYesNo()) voteResponse(buttonBSP);
+            else applyButtonClickResponseReset(buttonBSP);
+
+
         }else if(e.getSource().equals(buttonShivSena)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonShivSena);
-            }
+            applyButtonClickResponse(buttonShivSena);
+            if(confirmOptionYesNo())voteResponse(buttonShivSena);
+            else applyButtonClickResponseReset(buttonShivSena);
+
         }else if(e.getSource().equals(buttonCPI)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonCPI);
-            }
+            applyButtonClickResponse(buttonCPI);
+            if(confirmOptionYesNo()) voteResponse(buttonCPI);
+            else applyButtonClickResponseReset(buttonCPI);
+
         }else if(e.getSource().equals(buttonBJP)){
-            if(confirmOptionYesNo()){
-                voteResponse(buttonBJP);
-            }
+            applyButtonClickResponse(buttonBJP);
+            if(confirmOptionYesNo()) voteResponse(buttonBJP);
+            else applyButtonClickResponseReset(buttonBJP);
+
         }
 
     }
@@ -240,7 +251,6 @@ public class Home extends JFrame implements ActionListener {
         setVisible(false);
         new Greeting();
     }
-
 
     public static void main(String[] args) {
         new Home();

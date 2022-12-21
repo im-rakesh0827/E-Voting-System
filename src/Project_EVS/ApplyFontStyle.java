@@ -41,6 +41,17 @@ public class ApplyFontStyle extends JFrame {
         }
     }
 
+    public static void applyButtonClickResponse(JButton button){
+        Border border = BorderFactory.createLineBorder(Color.GREEN, 3);
+        button.setBorder(border);
+    }
+
+    public static void applyButtonClickResponseReset(JButton button){
+        Border border = BorderFactory.createLineBorder(Color.GRAY, 3);
+        button.setBorder(border);
+    }
+
+
     public static void applyLabelBorder(JLabel [] labelArray){
         Border border = BorderFactory.createLineBorder(Color.BLUE, 3, true);
         for(JLabel label:labelArray){

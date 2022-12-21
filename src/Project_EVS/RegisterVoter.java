@@ -4,19 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+import java.util.Random;
 
 import static Project_EVS.ConfirmChoice.confirmOptionYesNo;
 
 public class RegisterVoter extends JFrame implements ActionListener {
 
-    JLabel labelName, labelEmail, labelPhone, labelAge, labelAadhar, labelVoterId, labelUserId, labelVoted, labelPassword, labelConfirmPassword;
-    JTextField tfName, tfEmail, tfPhone, tfAge, tfAadhar, tfVoterId, tfUserId, tfVoted, tfPassword;
+    JLabel labelName, labelEmail, labelPhone, labelAge, labelAadhar, labelVoterId, labelUserId,labelUID, labelVoted, labelVotedOrNo, labelPassword, labelConfirmPassword;
+    JTextField tfName, tfEmail, tfPhone, tfAge, tfAadhar, tfVoterId, tfVoted, tfPassword;
     JButton buttonBack, buttonSubmit, buttonCancel;
     JPasswordField pfConfirmPassword;
+
 
     JLabel [] labelArray;
     JTextField [] fieldArray;
     JButton [] buttonArray;
+
+
+    Random random = new Random();
+    int uniqueId = random.nextInt(99999);
+
 
 
     RegisterVoter(){
@@ -70,10 +78,10 @@ public class RegisterVoter extends JFrame implements ActionListener {
         labelUserId.setBounds(50, verticalShift, 100, 30);
         labelUserId.setFont(new Font("serif", Font.BOLD, 20));
         add(labelUserId);
-        tfUserId = new JTextField();
-        tfUserId.setBounds(150, verticalShift, 350, 30);
-        tfUserId.setFont(new Font("serif", Font.PLAIN, 20));
-        add(tfUserId);
+        labelUID = new JLabel(""+uniqueId);
+        labelUID.setBounds(150, verticalShift, 350, 30);
+        labelUID.setFont(new Font("serif", Font.PLAIN, 20));
+        add(labelUID);
 
 
         verticalShift+= gapDown;
@@ -128,10 +136,10 @@ public class RegisterVoter extends JFrame implements ActionListener {
         labelVoted.setBounds(620, verticalShift, 100, 30);
         labelVoted.setFont(new Font("serif", Font.BOLD, 20));
         add(labelVoted);
-        tfVoted = new JTextField();
-        tfVoted.setBounds(720, verticalShift, 350, 30);
-        tfVoted.setFont(new Font("serif", Font.PLAIN, 20));
-        add(tfVoted);
+        labelVotedOrNo = new JLabel("No");
+        labelVotedOrNo.setBounds(720, verticalShift, 350, 30);
+        labelVotedOrNo.setFont(new Font("serif", Font.PLAIN, 20));
+        add(labelVotedOrNo);
 
 
         verticalShift += gapDown;
@@ -187,10 +195,7 @@ public class RegisterVoter extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(buttonSubmit)){
-            if(confirmOptionYesNo()){
-                System.out.println("Your Information Has Been Saved Successfully");
-                System.exit(0);
-            }
+            registerVoter();
         }else if(e.getSource().equals(buttonBack)){
             if(confirmOptionYesNo()){
                 setVisible(false);
@@ -211,10 +216,97 @@ public class RegisterVoter extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args) {
+    public Voter voter;
+    public void registerVoter(){
+        String name = tfName.getText();
+        String email = tfEmail.getText();
+        String phone = tfPhone.getText();
+        String age = tfAge.getText();
+        String aadhar = tfAadhar.getText();
+        String voterId = tfVoterId.getText();
+        String userId = labelUID.getText();
+        String voted = labelVotedOrNo.getText();
+        String password = tfPassword.getText();
+        String confirmPassword = String.valueOf(pfConfirmPassword.getPassword());
 
+        voter = addVoterToDatabase(name, email, phone, age, aadhar, voterId, userId, voted, password);
+        if(name.isEmpty() || email.isEmpty() || phone.isEmpty() || age.isEmpty() || aadhar.isEmpty() ||voterId.isEmpty() || userId.isEmpty() || voted.isEmpty() || password.isEmpty()){
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Enter details carefully !",
+                    "Details missing!",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+        }
+        if(!password.equals(confirmPassword)){
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Re-enter your password !",
+                    "Password mismatch",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        else if(voter!=null){
+            if(confirmOptionYesNo()){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Voter Registered Successfully",
+                        "Registration Successful",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+            setVisible(false);
+            new Home();
+        }
+
+    }
+    Connection connection;
+    Statement statement;
+    PreparedStatement preparedStatement;
+    String query;
+
+    private Voter addVoterToDatabase(String name, String email, String phone, String age, String aadhar, String voterId, String userId, String voted, String password) {
+        final String DBURL = "jdbc:mysql://localhost:3306/votingsystem";
+        final String USERNAME = "root";
+        final String PASSWORD = "Apple@0827";
+        final String driver = "com.mysql.cj.jdbc.Driver";
+
+        try{
+            Class.forName(driver);
+            connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+            statement = connection.createStatement();
+            query = "insert into voter (name, email, phone, age, aadhar, voterId, userId, voted, password)"+"values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, phone);
+            preparedStatement.setString(4, age);
+            preparedStatement.setString(5, aadhar);
+            preparedStatement.setString(6, voterId);
+            preparedStatement.setString(7, userId);
+            preparedStatement.setString(8, voted);
+            preparedStatement.setString(9, password);
+            int row = preparedStatement.executeUpdate();
+            if(row>0){
+                voter = new Voter();
+                voter.name = name;
+                voter.email = email;
+                voter.phone = phone;
+                voter.age = age;
+                voter.aadhar = aadhar;
+                voter.voterId = voterId;
+                voter.voted = voted;
+                voter.password = password;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return voter;
+    }
+    public static void main(String[] args) {
+        new Voter();
         new RegisterVoter();
     }
-
 
 }

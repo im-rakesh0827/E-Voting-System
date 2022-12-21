@@ -9,4 +9,6 @@ public class ConfirmChoice extends JFrame {
         frame = new JFrame();
         return JOptionPane.showConfirmDialog(frame, "Press Yes / No.", "Confirm Your Choice !", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION;
     }
+
+
 }

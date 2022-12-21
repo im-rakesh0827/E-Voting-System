@@ -78,6 +78,8 @@ public class Greeting extends JFrame implements ActionListener {
                             JOptionPane.ERROR_MESSAGE
                     );
                 }
+                setVisible(false);
+                new Welcome();
             }else{
                 JOptionPane.showMessageDialog(
                         this,
