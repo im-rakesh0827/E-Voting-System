@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.util.Random;
 
 import static Project_EVS.ConfirmChoice.confirmOptionYesNo;
 
@@ -15,11 +17,9 @@ public class LoginAdmin extends JFrame implements ActionListener {
     JButton buttonLogin, buttonRegister, buttonCancel;
 
     LoginAdmin(){
-
         setLayout(null);
 //        getContentPane().setBackground(Color.pink);
         getContentPane().setBackground(Color.getHSBColor(120,258,150));
-
 
         JLabel heading  = new JLabel("Admin Login Form");
         heading.setBounds(320, 40, 500, 50);
@@ -75,19 +75,39 @@ public class LoginAdmin extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(buttonLogin)){
+
+    public void authenticateAdmin(){
+        try {
             String email = tfEmail.getText();
             String password = String.valueOf(pfPassword.getPassword());
-            if(email.isEmpty() || password.isEmpty()){
+            Conn connection = new Conn();
+            String query = "select * from admin where email='"+email+"' and password='"+password+"'";
+            ResultSet resultSet = connection.statement.executeQuery(query);
+            if(resultSet.next()){
                 JOptionPane.showMessageDialog(
                         this,
-                        "Enter The Details Carefully.",
-                        "Details Missing",
+                        "You Have Logged In Successfully",
+                        "Login Successful",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                setVisible(false);
+                new Home();
+            }else{
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Invalid Login Credential",
+                        "Login Failed",
                         JOptionPane.ERROR_MESSAGE
                 );
             }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource().equals(buttonLogin)){
+            authenticateAdmin();
         }else if(e.getSource().equals(buttonRegister)){
             setVisible(false);
             new RegisterAdmin();

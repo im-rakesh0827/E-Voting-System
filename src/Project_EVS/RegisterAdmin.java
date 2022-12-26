@@ -4,15 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.Random;
 
 import static Project_EVS.ConfirmChoice.confirmOptionYesNo;
 
 public class RegisterAdmin extends JFrame implements ActionListener {
 
-    JLabel labelName, labelEmail, labelPhone, labelAge, labelAadhar, labelUserId, labelPassword, labelConfirmPassword;
-    JTextField tfName, tfEmail, tfPhone, tfAge, tfAadhar, tfUserId, tfPassword;
+    JLabel labelName, labelEmail, labelPhone, labelAge, labelAadhar, labelUserId, labelUID, labelPassword, labelConfirmPassword;
+    JTextField tfName, tfEmail, tfPhone, tfAge, tfAadhar, tfPassword;
     JButton buttonSubmit, buttonBack, buttonCancel;
     JPasswordField pfConfirmPassword;
+
+
+    Random random = new Random();
+    int UId = random.nextInt(999999);
 
     JLabel [] labelArray;
     JTextField [] fieldArray;
@@ -61,10 +70,11 @@ public class RegisterAdmin extends JFrame implements ActionListener {
         labelUserId.setBounds(50, verticalShift, 100, 30);
         labelUserId.setFont(new Font("serif", Font.BOLD, 20));
         add(labelUserId);
-        tfUserId = new JTextField();
-        tfUserId.setBounds(150, verticalShift, 350, 30);
-        tfUserId.setFont(new Font("serif", Font.PLAIN, 20));
-        add(tfUserId);
+        labelUID = new JLabel(""+ UId);
+        labelUID.setBounds(150, verticalShift, 350, 30);
+        labelUID.setFont(new Font("serif", Font.PLAIN, 20));
+        add(labelUID);
+
 
 
         verticalShift+= gapDown;
@@ -108,10 +118,10 @@ public class RegisterAdmin extends JFrame implements ActionListener {
         labelAge.setBounds(620, verticalShift, 100, 30);
         labelAge.setFont(new Font("serif", Font.BOLD, 20));
         add(labelAge);
-        tfPhone = new JTextField();
-        tfPhone.setBounds(720, verticalShift, 350, 30);
-        tfPhone.setFont(new Font("serif", Font.PLAIN, 20));
-        add(tfPhone);
+        tfAge = new JTextField();
+        tfAge.setBounds(720, verticalShift, 350, 30);
+        tfAge.setFont(new Font("serif", Font.PLAIN, 20));
+        add(tfAge);
 
 
         verticalShift += gapDown;
@@ -161,8 +171,107 @@ public class RegisterAdmin extends JFrame implements ActionListener {
         setLocation(140, 50);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 
 
+    public void registerAdmin(){
+        String name = tfName.getText();
+        String email = tfEmail.getText();
+        String phone = tfPhone.getText();
+        String aadhar = tfAadhar.getText();
+        String userId = String.valueOf(UId);
+        String age = tfAge.getText();
+        String password = tfPassword.getText();
+        String confPassword = String.valueOf(pfConfirmPassword.getPassword());
+
+        String dataArray[] = {name, email, phone, aadhar, userId, age, password, confPassword};
+        if(checkEmpty(dataArray)){
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Enter Details Carefully!",
+                    "Details Missing!",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }else{
+            if(!password.equals(confPassword)){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Re-Enter Confirm Password",
+                        "Password Mismatch",
+                        JOptionPane.ERROR_MESSAGE
+                );
+
+            }else{
+                admin = addAdminToDatabase(name, email, phone, aadhar, userId, age, password);
+                if(admin!=null){
+                    JOptionPane.showMessageDialog(
+                            this,
+                            admin.name+" Registered Successfully",
+                            "Registration Successful",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    System.out.println("Registration Successful : "+admin.name);
+                    setVisible(false);
+                    new LoginAdmin();
+                }else{
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Registration Failed",
+                            "Try Again",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    setVisible(false);
+                    new Welcome();
+                }
+            }
+        }
+
+    }
+
+    Admin admin;
+    Connection connection;
+    Statement statement;
+    PreparedStatement preparedStatement;
+    String query;
+    private Admin addAdminToDatabase(String name, String email, String phone, String aadhar, String userId, String age, String password) {
+        final String DBURL = "jdbc:mysql://localhost:3306/votingsystem";
+        final String USERNAME = "root";
+        final String PASSWORD = "Apple@0827";
+        final String driver = "com.mysql.cj.jdbc.Driver";
+        try {
+            connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+            statement = connection.createStatement();
+            query = "insert into admin(name, email, phone, aadhar, userId, age, password)"+"values(?, ?, ?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, phone);
+            preparedStatement.setString(4, aadhar);
+            preparedStatement.setString(5, userId);
+            preparedStatement.setString(6, age);
+            preparedStatement.setString(7, password);
+            int rowData = preparedStatement.executeUpdate();
+            if(rowData>0){
+                admin = new Admin();
+                admin.name = name;
+                admin.email = email;
+                admin.phone = phone;
+                admin.aadhar = aadhar;
+                admin.userId = userId;
+                admin.age = age;
+                admin.password = password;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return admin;
+    }
+
+    private boolean checkEmpty(String[] dataArray) {
+        for(String s:dataArray){
+            if(s.isEmpty()) return true;
+        }
+        return false;
     }
 
 
@@ -170,8 +279,7 @@ public class RegisterAdmin extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(buttonSubmit)){
             if(confirmOptionYesNo()){
-                System.out.println("Your Information Has Been Saved Successfully");
-                System.exit(0);
+                registerAdmin();
             }
         }else if(e.getSource().equals(buttonBack)){
             if(confirmOptionYesNo()){
