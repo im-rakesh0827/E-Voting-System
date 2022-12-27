@@ -247,10 +247,31 @@ public class Home extends JFrame implements ActionListener {
                 "Congratulation !",
                 JOptionPane.ERROR_MESSAGE
         );
-
+        int cong = 0, aap = 0, jdu = 0, rjd = 0, sp = 0, bsp = 0, shivsena = 0, cpi = 0, bjp = 0;
+        if(response.equals(buttonCongress)) cong+=1;
+        else if(response.equals(buttonJDU)) jdu+=1;
+        else if(response.equals(buttonRJD)) rjd+=1;
+        else if(response.equals(buttonSP)) sp+=1;
+        else if(response.equals(buttonBSP)) bsp+=1;
+        else if(response.equals(buttonShivSena)) shivsena+=1;
+        else if(response.equals(buttonCPI)) cpi+=1;
+        else if(response.equals(buttonBJP)) bjp+=1;
+        updateWinnerTable(cong, aap, jdu, rjd, sp, bsp, shivsena, cpi, bjp);
         setVisible(false);
         new Greeting();
     }
+
+    private void updateWinnerTable(int cong, int aap, int jdu, int rjd, int sp, int bsp, int shivsena, int cpi, int bjp) {
+        Voter voter = new Voter();
+        String vId = voter.voterId;
+        String vName = voter.name;
+        
+        String sql = "insert into winner(voterId, voterName, cong, aap, jdu, rjd, sp, bsp, shivsena, cpi, bjp)"+"values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    }
+
+
+
 
     public static void main(String[] args) {
         new Home();

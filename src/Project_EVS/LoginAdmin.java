@@ -116,7 +116,7 @@ public class LoginAdmin extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(
                         this,
                         "Press Ok To Continue.",
-                        "Registration Cancelled !",
+                        "Login Failed !",
                         JOptionPane.ERROR_MESSAGE
                 );
                 setVisible(false);

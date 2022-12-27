@@ -23,13 +23,13 @@ public class Greeting extends JFrame implements ActionListener {
         labelGreet.setFont(new Font("serif", Font.BOLD, 50));
         add(labelGreet);
 
-//        JLabel labelFeedBack = new JLabel("Feedback : ");
-//        labelFeedBack.setBounds(270, 250, 150, 30);
-//        labelFeedBack.setFont(new Font("serif", Font.BOLD, 20));
-//        add(labelFeedBack);
+        JLabel labelFeedBack = new JLabel("Feedback : ");
+        labelFeedBack.setBounds(180, 250, 150, 30);
+        labelFeedBack.setFont(new Font("serif", Font.BOLD, 20));
+        add(labelFeedBack);
 
         tfFeedback = new JTextField();
-        tfFeedback.setBounds(180, 250, 520, 30);
+        tfFeedback.setBounds(180, 290, 520, 30);
         tfFeedback.setFont(new Font("serif", Font.BOLD, 20));
         getContentPane().add(tfFeedback);
 

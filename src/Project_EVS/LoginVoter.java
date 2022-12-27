@@ -129,6 +129,12 @@ public class LoginVoter extends JFrame  implements ActionListener {
             new RegisterVoter();
         }else if(e.getSource().equals(buttonCancel)){
             if(confirmOptionYesNo()){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Press Ok To Continue !",
+                        "Login Failed",
+                        JOptionPane.ERROR_MESSAGE
+                );
                 setVisible(false);
                 new Welcome();
             }
