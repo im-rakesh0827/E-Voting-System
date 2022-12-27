@@ -265,8 +265,8 @@ public class Home extends JFrame implements ActionListener {
         Voter voter = new Voter();
         String vId = voter.voterId;
         String vName = voter.name;
-        
-        String sql = "insert into winner(voterId, voterName, cong, aap, jdu, rjd, sp, bsp, shivsena, cpi, bjp)"+"values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        System.out.println(vId+" "+vName);
+//        String sql = "insert into winner(voterId, voterName, cong, aap, jdu, rjd, sp, bsp, shivsena, cpi, bjp)"+"values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     }
 

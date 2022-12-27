@@ -278,9 +278,7 @@ public class RegisterAdmin extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(buttonSubmit)){
-            if(confirmOptionYesNo()){
-                registerAdmin();
-            }
+            registerAdmin();
         }else if(e.getSource().equals(buttonBack)){
             if(confirmOptionYesNo()){
                 setVisible(false);

@@ -89,6 +89,7 @@ public class LoginVoter extends JFrame  implements ActionListener {
             Conn connection = new Conn();
             String query = "select * from voter where voterId='"+vId+"'and password = '"+password+"'";
             ResultSet resultSet = connection.statement.executeQuery(query);
+
             if(resultSet.next()){
                 JOptionPane.showMessageDialog(
                         this,
