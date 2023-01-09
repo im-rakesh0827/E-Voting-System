@@ -33,8 +33,6 @@ What things you need to install the software and how to install them:
 
 - 📫 How to reach me **acousticrakesh0827@gmail.com**
 
-- 📄 Know about my experiences [https://drive.google.com/file/d/1_IlArM699X5cNvPFe-eZzfMkEkVUmxco/view?usp=share_link](https://drive.google.com/file/d/1_IlArM699X5cNvPFe-eZzfMkEkVUmxco/view?usp=share_link)
-
 - ⚡ Fun fact **Life Is Unreal, Death Is Uncertain**
 
 
