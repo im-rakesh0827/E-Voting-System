@@ -137,3 +137,18 @@ git push -u origin <your_branch_name>
 
 - *Why clone everything to the machine? Just press "." (dot) after opening the forked repo in a browser tab. See the Magic!🎉*
 - *Want to preview your live changes? Copy and paste the project.html URL into [GitHack](https://raw.githack.com/). You will get 2 URLs for production and development, copy and paste them into a new tab. See the Magic!🎉*
+
+
+# Project Maintainers🕵🏼‍♂
+<table>
+    <tbody>
+        <tr>
+            <td align="center"><a href="https://github.com/im-rakesh0827"><img alt=""
+                        src="https://media.licdn.com/dms/image/D4D03AQFrbMk_sOzmBQ/profile-displayphoto-shrink_800_800/0/1670674619069?e=1678924800&v=beta&t=Ry5UKGq4FKdM1cDfQ4V2ywJgAr8APC7hUyKiM9lcfYA"
+                        width="130px;"><br><sub><b> Rakesh Kumar </b></sub></a><br><a
+                    href="https://github.com/im-rakesh0827/E-Voting-System.git"
+                    title="Code">💻 </a></td> </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
