@@ -144,10 +144,10 @@ git push -u origin <your_branch_name>
     <tbody>
         <tr>
             <td align="center"><a href="https://github.com/im-rakesh0827"><img alt=""
-                        src="https://media.licdn.com/dms/image/D4D03AQFrbMk_sOzmBQ/profile-displayphoto-shrink_800_800/0/1670674619069?e=1678924800&v=beta&t=Ry5UKGq4FKdM1cDfQ4V2ywJgAr8APC7hUyKiM9lcfYA"
+                        src="https://instagram.fixr3-1.fna.fbcdn.net/v/t51.2885-19/313937082_689555712600283_6940519704324588680_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fixr3-1.fna.fbcdn.net&_nc_cat=107&_nc_ohc=V21E_85u9YUAX_XXC6b&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfAay1VleuTaVEFaZn0eH6WvSphVQN0Sx0IcC8nRGkItSw&oe=63C57014&_nc_sid=8fd12b"
                         width="130px;"><br><sub><b> Rakesh Kumar </b></sub></a><br><a
                     href="https://github.com/im-rakesh0827/E-Voting-System.git"
-                    title="Code">💻 </a></td> </a>
+                    title="Code">🌝💻 </a></td> </a>
             </td>
         </tr>
     </tbody>
