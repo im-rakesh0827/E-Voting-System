@@ -4,11 +4,6 @@
     src="https://appinventiv.com/wp-content/uploads/sites/1/2020/11/Role-of-blockchain-in-voting.gif">
     &nbsp;
 </div>
-<div>
-    <a href="https://app.daily.dev/im_rakesh0827"><img
-        src="https://api.daily.dev/devcards/af8267d7f3354450901bc26ab429a635.png?r=8qq" width="400" align="right"
-        alt="Rakesh Kumar's Dev Card" /></a>
-</div>
 <h3>Description : </h3>
 The Online Voting System is a window-based platform that enables individuals to cast their votes electronically.
 It is designed to modernize the voting process and make it more convenient and accessible for voters.
@@ -43,14 +38,17 @@ What things you need to install the software and how to install them:
 <img alt="IntelliJ India"
     src="https://img.shields.io/badge/intellijIdea%20-%23323330.svg?&style=for-the-badge&logo=intellijIdea%20-%23323330" />
 
-- 📝 I write articles on [https://medium.com/@im-rakesh0827](https://medium.com/@im-rakesh0827)
+- I write articles on : [Medium](https://medium.com/@im-rakesh0827)
 
-- 📄 Proof Of Work : (https://hashnode.com/@imrakesh0827)
+- Proof Of Work : [Hashnode](https://hashnode.com/@imrakesh0827)
 
-- 📫 How to reach me **acousticrakesh0827@gmail.com**
+- Creativerse Blog : [Fueler](https://fueler.io/im_rakesh0827)
 
-- ⚡ My Fav Quotation : **Life Is Unreal, Death Is Uncertain**
+- Buy Me A Coffee : [Click Here](https://www.buymeacoffee.com/im_rakesh0827)
 
+- Personal Branding : [Ko-Fi](https://ko-fi.com/im_rakesh0827) 
+
+- My Protfolio : [Click Here](https://im-rakesh0827.github.io/Portfolio-Website/)
 
 
 # Contributing Guidelines📝
